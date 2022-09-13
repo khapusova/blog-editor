@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import {Editor, EditorState, RichUtils, AtomicBlockUtils } from 'draft-js';
-import Button from './Button';
-import Image from './Image';
+import { Flex, Input } from '../../mixins';
+import Toolbar from '../molecules/Toolbar';
+import Image from '../atoms/Image';
 
 const myBlockStyleFn = (contentBlock) => {
   const type = contentBlock.getType();
@@ -21,14 +22,9 @@ const MyEditor = () => {
   }
   });
   
-  const  handleBold = () => {
-    const newState = RichUtils.handleKeyCommand(editorState, "bold");
-    if (newState) {
-      setEditorState(newState);
-    };
-  };
-  const  handleCode = () => {
-    const newState = RichUtils.handleKeyCommand(editorState, "code");
+
+  const  handleCommand = (command) => {
+    const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
       setEditorState(newState);
     };
@@ -82,26 +78,31 @@ const MyEditor = () => {
   };
 
   return (
-  <div style={{width: "200px", border: "2px solid", display: "block", padding:"40px"}}>
-    <input
+  <Flex border="1px solid lightSlateGrey" borderRadius="5px" display="block" margin="20px">
+    <Flex width="50%" margin="10px">
+      <Toolbar handleCommand={handleCommand} handleOnFileInputChange={handleOnFileInputChange} />
+    </Flex>
+    <Flex width="100%" borderTop="1px solid" />
+    <Flex position="relative" marginX="10px" marginBottom="10px" marginTop="5px" display="block">
+      <Input
         id="fileInput"
-        type="file"
         accept="image/png,image/jpeg,image/jpg,image/gif"
         onChange={handleOnFileInputChange}
+        height="30px"
+        width="100%"
+        type="file"
+        opacity="0%"
       />
-    <div style={{width: "100%", justifyContent: "space-between", display: "flex"}}>
-    <Button handleOnClick={handleBold} content="B" />
-    <Button handleOnClick={handleCode} content="<>" />
-    </div>
-    <div style={{width: "200px", border: "2px solid", }}>
-      <Editor
-        blockRendererFn={renderBlock}
-        editorState={editorState}
-        blockStyleFn={myBlockStyleFn}
-        onChange={setEditorState}
-      />
-    </div>
-  </div>);
+      <Flex position="absolute">
+        <Editor
+          blockRendererFn={renderBlock}
+          editorState={editorState}
+          blockStyleFn={myBlockStyleFn}
+          onChange={setEditorState}
+        />
+      </Flex>
+    </Flex>
+  </Flex>);
 }
 
 export default MyEditor;

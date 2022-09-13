@@ -4,14 +4,16 @@ const Image = ({ blockProps }) => {
 
   if (blockProps.src.file) {
     return (
-      <img
-        onClick={blockProps.handleOnClick}
-        style={{
-          width: "100%"
-        }}
-        src={blockProps.src.file}
-        alt=""
-      />
+      <figure>
+        <img
+          onClick={blockProps.handleOnClick}
+          style={{
+            width: "100%"
+          }}
+          src={blockProps.src.file}
+          alt=""
+        />
+      </figure>
     );
   }
   return null;
