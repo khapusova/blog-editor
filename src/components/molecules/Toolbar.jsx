@@ -40,7 +40,7 @@ const toolbarDummyProps = [
   }
 ];
 
-const Toolbar = ({handleCommand, handleOnFileInputChange}) => {
+const Toolbar = ({handleCommand, handleOnFileInputChange, handleOpenModal}) => {
   const memoButtons = useMemo(() => toolbarDummyProps.map(comp =>
     comp.type === "button" ? (
     <Button
@@ -49,7 +49,7 @@ const Toolbar = ({handleCommand, handleOnFileInputChange}) => {
       width="30px"
       color="white"
       backgroundColor="lightSlateGrey"
-      onClick={() => handleCommand(comp.command)}
+      onClick={() => handleOpenModal ? handleOpenModal() : handleCommand(comp.command)}
     >
       {comp.content}
     </Button>
@@ -76,7 +76,7 @@ const Toolbar = ({handleCommand, handleOnFileInputChange}) => {
         />
       </Flex>
     )
-  ), [handleCommand, handleOnFileInputChange]);
+  ), [handleCommand, handleOnFileInputChange, handleOpenModal]);
 
   return (
     <Flex width="100%" justifyContent="space-between">
