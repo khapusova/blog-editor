@@ -49,7 +49,7 @@ const Toolbar = ({handleCommand, handleOnFileInputChange, handleOpenModal}) => {
       width="30px"
       color="white"
       backgroundColor="lightSlateGrey"
-      onClick={() => handleOpenModal ? handleOpenModal() : handleCommand(comp.command)}
+      onClick={() => comp.command === 'url' ? handleOpenModal() : handleCommand(comp.command)}
     >
       {comp.content}
     </Button>
